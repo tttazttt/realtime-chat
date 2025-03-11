@@ -1,12 +1,13 @@
-"use client";
-
-import { signIn } from "next-auth/react";
 import Image from "next/image";
 
-const SignInButton = () => {
+const SignInButton = ({
+  handleGoogleSignIn,
+}: {
+  handleGoogleSignIn: () => void;
+}) => {
   return (
     <button
-      onClick={() => signIn("google", { callbackUrl: "/" })}
+      onClick={handleGoogleSignIn}
       className="cursor-pointer hover:opacity-40"
     >
       <Image
