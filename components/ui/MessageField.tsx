@@ -131,7 +131,7 @@ const MessageField = ({ session }: { session: Session }) => {
   return (
     <div className="w-full h-screen bg-[#7c7794] grid place-items-center">
       <div className="w-full h-screen sm:w-[95%] sm:h-[90%] max-w-[600px]  rounded-xl">
-        <div className="w-full h-[88%] max-h-[653px] sm:max-h-[800px] bg-[#e9daff] sm:rounded-t-xl p-5 pb-0 flex flex-col gap-5 overflow-y-auto scroll-smooth">
+        <div className="w-full h-[88%] max-h-[600px] sm:max-h-[800px] bg-[#e9daff] sm:rounded-t-xl p-5 pb-0 flex flex-col gap-5 overflow-y-auto scroll-smooth">
           {messages.map((msg: Message) => (
             <div
               key={msg.id}
