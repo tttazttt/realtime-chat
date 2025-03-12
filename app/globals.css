@@ -15,3 +15,7 @@ body {
     rgba(148, 187, 233, 1) 100%
   );
 }
+
+#modal-bg {
+  background: rgba(0, 0, 0, 0.639);
+}

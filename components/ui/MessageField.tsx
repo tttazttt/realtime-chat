@@ -18,6 +18,9 @@ const MessageField = ({ session }: { session: Session }) => {
   const buttonRef = useRef<HTMLButtonElement | null>(null);
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
   const [isComposing, setIsComposing] = useState(false);
+  const [selectedUser, setSelectedUser] = useState<string | null>(null);
+
+  const closeModal = () => setSelectedUser(null);
 
   useEffect(() => {
     socket.on("new_message", (newMessage: Message) => {
@@ -130,8 +133,8 @@ const MessageField = ({ session }: { session: Session }) => {
 
   return (
     <div className="w-full h-screen bg-[#7c7794] grid place-items-center">
-      <div className="w-full h-screen sm:w-[95%] sm:h-[90%] max-w-[600px]  rounded-xl">
-        <div className="w-full h-[88%] max-h-[600px] sm:max-h-[800px] bg-[#e9daff] sm:rounded-t-xl p-5 pb-0 flex flex-col gap-5 overflow-y-auto scroll-smooth">
+      <div className="w-full h-screen sm:w-[95%] sm:h-[90%] max-w-[600px] rounded-xl">
+        <div className="w-full h-[88%] max-h-[88%] sm:max-h-[800px] bg-[#e9daff] sm:rounded-t-xl p-5 pb-0 flex flex-col gap-5 overflow-y-auto scroll-smooth">
           {messages.map((msg: Message) => (
             <div
               key={msg.id}
@@ -144,7 +147,8 @@ const MessageField = ({ session }: { session: Session }) => {
                 width={35}
                 height={35}
                 alt="投稿者画像"
-                className="rounded-full"
+                className="rounded-full cursor-pointer hover:opacity-40"
+                onClick={() => setSelectedUser(msg.user.name as string)}
               />
               <p className="bg-[#f7f7f7] inline-block p-3 rounded-xl text-sm">
                 {msg.text}
@@ -152,6 +156,22 @@ const MessageField = ({ session }: { session: Session }) => {
             </div>
           ))}
           <div ref={messagesEndRef} className="" />
+          {selectedUser && (
+            <div
+              className="fixed inset-0 flex items-center justify-center"
+              id="modal-bg"
+            >
+              <div className="bg-white p-4 w-40 h-40 rounded-lg shadow-xl flex flex-col justify-center gap-5">
+                <p className="text-2xl font-semibold">{selectedUser}</p>
+                <button
+                  className="p-2 w-20 bg-[#ff9bff] rounded-xl text-white cursor-pointer hover:opacity-40"
+                  onClick={closeModal}
+                >
+                  閉じる
+                </button>
+              </div>
+            </div>
+          )}
         </div>
         <div className="w-full h-[12%] min-h-[70px] bg-[#f6f6f6] sm:rounded-b-xl flex p-3 pr-2 gap-2">
           <div className="flex-1 grid place-items-center relative">
